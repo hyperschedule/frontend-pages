@@ -19,6 +19,10 @@ concurrency:
 jobs:
   # Single deploy job since we're just deploying
   deploy:
+    defaults:
+      run:
+        shell: bash
+        working-directory: hyperschedule
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -40,7 +44,7 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
-          path: 'frontend/dist'
+          path: 'hyperschedule/frontend/dist'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
