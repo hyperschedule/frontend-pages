@@ -35,8 +35,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: "yarn"
-          cache-dependency-path: "hyperschedule/yarn.lock"
+      - name: Cache Gradle packages
+        uses: actions/cache@v3
+        with:
+          path: "~/hyperschedule/node_modules"
       - run: yarn install --immutable
       - run: yarn workspace hyperschedule-frontend prod 
       - name: Setup Pages
