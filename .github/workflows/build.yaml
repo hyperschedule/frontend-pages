@@ -41,14 +41,17 @@ jobs:
         uses: actions/cache@v3
         with:
           path: "~/hyperschedule/node_modules"
-      - run: yarn install --immutable
-      - run: yarn workspace hyperschedule-frontend prod 
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Fetch Contributors
+        run: yarn workspace hyperschedule-frontend get-contributors ${{GITHUB_TOKEN}}
+      - name: Build production
+        run: yarn workspace hyperschedule-frontend prod 
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          # Upload entire repository
           path: 'hyperschedule/frontend/dist'
       - name: Deploy to GitHub Pages
         id: deployment
