@@ -44,7 +44,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
       - name: Fetch Contributors
-        run: yarn workspace hyperschedule-frontend get-contributors ${{ env.GITHUB_TOKEN }}
+        run: yarn workspace hyperschedule-frontend get-contributors ${{ secrets.GITHUB_TOKEN }}
       - name: Build production
         run: yarn workspace hyperschedule-frontend prod 
       - name: Setup Pages
