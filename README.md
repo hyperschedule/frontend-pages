@@ -3,6 +3,12 @@
 This repository is used to deploy a particular commit to Github pages. To update, run
 
 ```
+sh update.sh
+```
+
+Alternatively
+
+```
 git submodule update --remote
 git add hyperschedule
 git commit -m "sync"
