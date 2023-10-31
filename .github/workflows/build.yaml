@@ -41,7 +41,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: "~/hyperschedule/node_modules"
-          key: "yarn-${{ hashFiles('hyperschedule/yarn.lock') }}"
+          # we can use a static cache key here because yarn would still update everything
+          key: "yarn"
       - name: Install dependencies
         run: yarn install --immutable
       - name: Fetch Contributors
