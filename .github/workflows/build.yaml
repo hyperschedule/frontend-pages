@@ -37,18 +37,21 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-      - name: Cache NPM packages
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Cache pnpm store
         uses: actions/cache@v3
         with:
-          path: "~/hyperschedule/node_modules"
-          # we can use a static cache key here because yarn would still update everything
-          key: "yarn"
+          path: ~/.local/share/pnpm/store
+          key: pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-
       - name: Install dependencies
-        run: yarn install --immutable
+        run: pnpm install --frozen-lockfile
       - name: Fetch Contributors
-        run: yarn workspace hyperschedule-frontend get-contributors ${{ secrets.GITHUB_TOKEN }}
+        run: pnpm --filter hyperschedule-frontend get-contributors ${{ secrets.GITHUB_TOKEN }}
       - name: Build production
-        run: yarn workspace hyperschedule-frontend prod 
+        run: pnpm --filter hyperschedule-frontend prod 
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
